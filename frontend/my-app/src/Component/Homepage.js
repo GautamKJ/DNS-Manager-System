@@ -5,8 +5,14 @@ import domain_icon from '../Assets/domain_icon.png'
 import value_icon from '../Assets/value_icon.png'
 import url_icon from '../Assets/www_icon.png'
 
+import Modal from "./Modal";
+import { useNavigate } from "react-router-dom";
+import Table from "./Table";
+
+
 
 const Homepage = () => {
+    
     
     const [dnsRecords, setDNSRecords] = useState([ { "domain": "example1.com", "recordType": "A", "value": "192.168.1.1" },
     { "domain": "example2.com", "recordType": "A", "value": "192.168.1.2" },
@@ -89,10 +95,13 @@ const Homepage = () => {
 
   // Calculate total pages
   const totalPages = Math.ceil(dnsRecords.length / recordsPerPage);
+const navigate=useNavigate();
+
+
   return (
     <div>
       <Navbar/>
-
+    <div className="dashboard">
       <div className="dns-records-table">
       <h3>DNS Records Table</h3>
       <div className="search-bar">
@@ -124,25 +133,14 @@ const Homepage = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredRecords.map((record) => (
-            <tr key={record._id}>
-              <td>{record.domain}</td>
-              <td>{record.recordType}</td>
-              <td>{record.value}</td>
-              <td>
-                <button
-                //   onClick={() => deleteRecord(record._id)}
-                  className="delete-button"
-                >
-                  <i class='bx bxs-trash' ></i>
-                </button>
-              </td>
-            </tr>
-          ))}
+          {filteredRecords.map((record) => {
+          return <Table  props={record}/>
+            })}
         </tbody>
       </table>
     </div>
-      
+    </div>
+    
     </div>
   )
 }

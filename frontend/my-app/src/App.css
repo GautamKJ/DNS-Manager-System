@@ -186,7 +186,7 @@ color:green;
 
 .home_container{
   /* background-color: red; */
-  height: 80vh;
+  height: max-content;
   display: flex;
   justify-content: center;
 }
@@ -194,6 +194,7 @@ color:green;
   margin-top: 10px;
   background-color: #F9F9F9;
   width: 75%;
+
   border-radius: 15px;
 
 }
@@ -216,7 +217,7 @@ color:green;
 
 .home_addbtn{
   float: right;
-margin-left: 5px;
+  margin-left: 5px;
   color:#fff;
   background: #3C91E6;
   font-size: 20px;
@@ -307,9 +308,22 @@ margin-left: 5px;
 
 
 /* DASHBOARD */
+
+.dashboard{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #F9F9F9;
+  width: 100%;
+  
+}
 .dns-records-table {
   background-color: #F9F9F9;
-  padding: 20px;
+  padding: 50px;
+  width: 95%;
+  
+
   border-radius: 10px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   margin-top: 20px;
@@ -335,6 +349,7 @@ th, td {
 }
 
 th {
+  text-align: center;
   background-color: #3C91E6;
   color: white;
 }
@@ -393,6 +408,86 @@ tbody tr:hover {
   transition: background-color 0.3s ease;
 }
 
+.actions{
+  display: flex;
+  justify-content: space-around;
+}
+.actions svg{
+  cursor: pointer;
+}
 /* .delete-button:hover {
   background-color: #c0392b;
 } */
+
+
+/* Modals */
+.modal-container {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 2.1); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal_box{
+  background-color: white;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 30em;
+  
+}
+
+.modal .btn .cncl_btn {
+  display: block;
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.form-group input
+{
+  border: 1px solid black;
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  font-size: 1rem;
+}
+
+.form-group label {
+  margin-bottom: 0.2rem;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #df4759;
+  padding: 0.5rem;
+  border-radius: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.btn{
+  float: right;
+  background-color: green;
+  color: white;
+}
+.btn:hover{
+  background-color: green;
+  color: white;
+}
+.cncl_btn{
+  float: left;
+  border: transparent;
+  padding: 8px;
+  width: 18%;
+  border-radius: 5px;
+
+  background-color: red;
+  color: white;
+}

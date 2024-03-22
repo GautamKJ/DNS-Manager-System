@@ -4,6 +4,7 @@ import Login from "./Component/Login";
 import Signup from "./Component/Signup";
 import Homepage from './Component/Homepage';
 import AddDomain from './Component/AddDomain';
+import Modal from './Component/Modal';
 
 function App() {
   return (
@@ -15,6 +16,8 @@ function App() {
          <Route path="/signup" element={<Signup/>}/> 
          <Route path="/homepage" element={<Homepage/>}/>
          <Route path="/add-domain" element={<AddDomain/>}/>
+         <Route path="/modal" element={<Modal/>}/>
+         
          </Routes>
 
          </BrowserRouter>
