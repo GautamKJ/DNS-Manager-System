@@ -27,7 +27,15 @@ const AddDomain = () => {
     }
 
       const handleFileChosen = (file) => {
-        
+        console.log(file.type);
+        if (file.name.endsWith('.json')) {
+            console.log("File is a JSON file");
+            // Proceed with processing the JSON file
+        }
+        else{
+            window.alert("File is not a JSON file");
+            return;
+        }
         fileReader = new FileReader();
         
         fileReader.onloadend = handleFileRead;

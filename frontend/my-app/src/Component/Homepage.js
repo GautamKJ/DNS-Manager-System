@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 import Navbar from "../Component/Navbar"
 import Table from "./Table";
+import Chart from "../Component/Chart";
 
 
 
 const Homepage = () => {
     
     document.title='Dashboard';
+    const[typecnt,setTypecnt]=useState({'A':1,'MX':10,'CNAME':12,'AAAA':13,'NS':14,'PTR':5,'SOA':16,'SRV':20,'TXT':8,'DNSSEC':2});
+
+
     const [dnsRecords, setDNSRecords] = useState([ { "domain": "example1.com", "recordType": "A", "value": "192.168.1.1" },
     { "domain": "example2.com", "recordType": "A", "value": "192.168.1.2" },
     { "domain": "example3.com", "recordType": "MX", "value": "mail.server3.com" },
@@ -146,7 +150,7 @@ const Homepage = () => {
       </table>
     </div>
     </div>
-    
+    <Chart count={typecnt}/>
     </div>
   )
 }

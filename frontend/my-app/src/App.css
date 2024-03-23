@@ -285,7 +285,7 @@ color:green;
 
 .home_input input{
   
-  height: 15px;
+  
   width: 300px;
   margin-left: 8px;
   background: transparent;
@@ -508,4 +508,22 @@ tbody tr:hover {
 
   background-color: red;
   color: white;
+}
+
+
+/* Chart */
+
+
+.chart {
+  background-color: #F9F9F9;
+  padding: 50px;
+  border-radius: 8px;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  /* border: solid 2px green; */
+}
+
+.chart h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  font-weight: bold;
 }

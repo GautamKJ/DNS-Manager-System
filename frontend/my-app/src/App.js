@@ -18,6 +18,7 @@ function App() {
          <Route path="/add-domain" element={<AddDomain/>}/>
          <Route path="/modal" element={<Modal/>}/>
          
+         
          </Routes>
 
          </BrowserRouter>
