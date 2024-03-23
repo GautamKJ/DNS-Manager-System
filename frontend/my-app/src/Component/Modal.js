@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 
-const Modal = (record) => {
+const Modal = (props) => {
 
-    const [detail,setdetail]=useState({domain:record.props.props.domain,recordType:record.props.props.recordType,valueR:record.props.props.value});
+    
+    
+const [detail,setdetail]=useState({domain:props.record.props.domain,propsType:props.record.props.recordType,valueR:props.record.props.value});
+
+    
 
 const handleChange=(e)=>{
 
@@ -10,16 +14,21 @@ const handleChange=(e)=>{
 
 }
 
-const handleSubmit=()=>{
+const handleSubmit=(e)=>{
+    e.preventDefault();
+    
+    props.onStateChange();
     
 }
 
 
   return (
     <>
-  
+        
       <div className="modal-container">
+      
         <div className="modal_box">
+        <h2>Edit</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="page">Domain</label>
@@ -32,11 +41,11 @@ const handleSubmit=()=>{
               />
             </div>
             <div className="form-group">
-              <label htmlFor="page">RecordType</label>
+              <label htmlFor="page">propsType</label>
               <input
                 type="text"
-                name="recordType"
-                value={detail.recordType}
+                name="propsType"
+                value={detail.propsType}
                 onChange={handleChange}
               />
             </div>
@@ -50,7 +59,7 @@ const handleSubmit=()=>{
               />
             </div>
             <button type="submit" className="btn">
-              Submit
+              Update
             </button>
             <button  className="cncl_btn">
               Cancel
@@ -58,6 +67,7 @@ const handleSubmit=()=>{
           </form>
         </div>
       </div>
+
     </>
   );
 };

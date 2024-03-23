@@ -6,6 +6,7 @@ import value_icon from '../Assets/value_icon.png'
 import url_icon from '../Assets/www_icon.png'
 
 const AddDomain = () => {
+    document.title='Add Domain';
   return (
     <div>
       <Navbar/>
@@ -21,7 +22,7 @@ const AddDomain = () => {
             
         </form>
 
-        <div className='home_choice'>OR</div>
+        {/* <div className='home_choice'>OR</div> */}
     <form className='home_form'>
         <div className='home_input_box'>
         <div className='home_input'>

@@ -45,15 +45,13 @@
   display: flex;
   flex-direction: column;
   margin: auto;
-  margin-top: 40px;
-  
-  
+  margin-top: 20px;
   width: fit-content;
   padding: 10px;
   /* border: solid black 2px; */
   background-color: #F9F9F9;
   border-radius: 16px;;
-  padding-bottom: 30px;
+  margin-bottom: 15px;
 
 }
 
@@ -67,18 +65,18 @@
 }
 .text{
   color:#3c009d;
-  font-size: 48px;
+  font-size: 30px;
   font-weight: 700;
 }
 .underline{
-  width: 61px;
-  height: 6px;
+  width: 40px;
+  height: 4px;
   background-color: #3c009d;
   border-radius: 9px;
 }
 
 .inputs{
-  margin-top: 55px;
+  margin-top: 25px;
   display: flex;
   flex-direction: column;
   
@@ -95,8 +93,8 @@
   margin: auto;
   padding-left: 8px;
   
-  width: 480px;
-  height: 80px;
+  width: 400px;
+  height: 50px;
   border-radius: 15px;
   
 }
@@ -116,15 +114,14 @@
 .submit-container{
   display: flex;
   gap: 30px;
-  margin: 30px auto;
+  margin: 20px auto;
 }
 
 .submit{
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 400px;
-  height: 59px;
+  width: 300px;
   color:#fff;
   background: green;
   border-radius: 50px;
@@ -132,6 +129,7 @@
   padding: 5px;
   font-weight: 700;
   cursor: pointer;
+  padding: 10px;
 
 }
 
@@ -140,14 +138,15 @@
 .nav_container {
   display: flex;
   background-color: #d0f0c0;
-  align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
-
   
+  padding: 0px 10px;
+  width: 100%;
+  height: 60px;
+
 }
 .title{
-padding: 10px;
+
 color: green;
 
 }
@@ -155,20 +154,24 @@ color: green;
 .links{
 display: flex;
 justify-content: space-around;
+height: 60px;
+
 }
 
 .icon{
 display: flex;
 align-items: center;
+
 }
 
 .links li{
 /* color:blue; */
 font-weight: bold;
-font-size: 25px;
+font-size:20px;
 display: flex;
-
-padding: 20px ;
+align-items: center;
+/* justify-content: center; */
+padding: 0px 15px;
 
 }
 
@@ -187,11 +190,16 @@ color:green;
 .home_container{
   /* background-color: red; */
   height: max-content;
+  /* height: 32em; */
+  
+
   display: flex;
   justify-content: center;
+  align-items: center;
+  /* border: solid red 3px; */
 }
 .home_box{
-  margin-top: 10px;
+  margin-top: 20px;
   background-color: #F9F9F9;
   width: 75%;
 
@@ -199,9 +207,11 @@ color:green;
 
 }
 .home_file{
-  margin-top: 30px;
-  padding: 40px;
+  margin-top: 10px;
+  padding: 20px;
   /* background-color: green; */
+  display: flex;
+  justify-content: space-around;
 
   border-bottom: solid 4px #3C91E6;
   
@@ -212,7 +222,7 @@ color:green;
   width: 80%;
   padding: 10px;
   border-radius: 10px;
-  font-size: 25px;
+  font-size: 15px;
 }
 
 .home_addbtn{
@@ -220,9 +230,9 @@ color:green;
   margin-left: 5px;
   color:#fff;
   background: #3C91E6;
-  font-size: 20px;
-  width: 10%;
-  padding: 15px;
+  font-size: 15px;
+  width: 15%;
+  padding: 10px;
   border: transparent;
   border-radius: 10px;  
   cursor: pointer;
@@ -237,15 +247,18 @@ color:green;
 }
 .home_form{
   /* background-color: yellow; */
-  height: 60vh;
+  height: fit-content;
   display: flex;
-  /* align-items: center; */
+  margin-top: 40px;
+  padding-bottom: 30px;
+  /* border: solid 1px red; */
+  align-items: center;
   justify-content: center;
   
 }
 .home_input_box{
-  padding: 25px;
-  width: 30%;
+  padding: 15px;
+  
   /* border: solid  #3C91E6 5px; */
     border-radius: 14px;
   gap: 25px;
@@ -256,13 +269,14 @@ color:green;
 .home_input{
   display: flex;
   align-items: center;
+  
   background-color: white;
   
   margin: auto;
   padding-left: 8px;
   
-  width: 400px;
-  height: 70px;
+  width: 350px;
+  height: 50px;
   border-radius: 15px;
   margin-bottom: 15px;
   
@@ -271,8 +285,8 @@ color:green;
 
 .home_input input{
   
-  height: 25px;
-  width: 500px;
+  height: 15px;
+  width: 300px;
   margin-left: 8px;
   background: transparent;
   border: none;
@@ -295,12 +309,12 @@ color:green;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  width: 250px;
   
   color:#fff;
   background:#3C91E6;
   border-radius: 50px;
-  font-size: 25px;
+  font-size:15px;
   padding: 15px;
   font-weight: 700;
   cursor: pointer;
@@ -355,7 +369,7 @@ th {
 }
 
 tbody tr:hover {
-  background-color: #3C91E6;
+  background-color: rgb(232, 228, 228);
   transition: background-color 0.3s ease;
 }
 
@@ -411,13 +425,17 @@ tbody tr:hover {
 .actions{
   display: flex;
   justify-content: space-around;
+  /* background-color: #282c34; */
+  height: 50px;
+
 }
 .actions svg{
   cursor: pointer;
 }
-/* .delete-button:hover {
-  background-color: #c0392b;
-} */
+.move_btn{
+  width: 8%;
+  
+}
 
 
 /* Modals */

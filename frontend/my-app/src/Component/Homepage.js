@@ -1,19 +1,12 @@
 import React, { useState } from 'react'
 import Navbar from "../Component/Navbar"
-import email_icon from '../Assets/email.png'
-import domain_icon from '../Assets/domain_icon.png'
-import value_icon from '../Assets/value_icon.png'
-import url_icon from '../Assets/www_icon.png'
-
-import Modal from "./Modal";
-import { useNavigate } from "react-router-dom";
 import Table from "./Table";
 
 
 
 const Homepage = () => {
     
-    
+    document.title='Dashboard';
     const [dnsRecords, setDNSRecords] = useState([ { "domain": "example1.com", "recordType": "A", "value": "192.168.1.1" },
     { "domain": "example2.com", "recordType": "A", "value": "192.168.1.2" },
     { "domain": "example3.com", "recordType": "MX", "value": "mail.server3.com" },
@@ -70,19 +63,24 @@ const Homepage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(20);
   const [searchTerm, setSearchTerm] = useState("");
+  
 
   
   // Calculate the index of the last record on the current page
   const indexOfLastRecord = currentPage * recordsPerPage;
   // Calculate the index of the first record on the current page
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  // Get the records for the current page
-  const currentRecords = dnsRecords.slice(indexOfFirstRecord, indexOfLastRecord);
+  
 
   // Filter records based on the search term
-  const filteredRecords = currentRecords.filter((record) =>
+  const filteredRecords = dnsRecords.filter((record) =>
     record.domain.toLowerCase().includes(searchTerm.toLowerCase())
+
   );
+
+  // Get the records for the current page
+  const currentRecords = filteredRecords.slice(indexOfFirstRecord, indexOfLastRecord);
+  console.log(currentRecords);
 
   // Pagination functions
   const goToPreviousPage = () => {
@@ -93,9 +91,15 @@ const Homepage = () => {
     setCurrentPage((prevPage) => Math.min(Math.ceil(dnsRecords.length / recordsPerPage), prevPage + 1));
   };
 
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);    
+    setCurrentPage(1);
+  };
+
   // Calculate total pages
-  const totalPages = Math.ceil(dnsRecords.length / recordsPerPage);
-const navigate=useNavigate();
+  const totalPages = Math.ceil(filteredRecords.length / recordsPerPage);
+  console.log(dnsRecords.length + " records per page");
+
 
 
   return (
@@ -107,18 +111,18 @@ const navigate=useNavigate();
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Search by domain"
+          placeholder="Search by Domain"
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={handleChange}
           className="search-input"
         />
-        <button onClick={goToPreviousPage} disabled={currentPage === 1}>
+        <button className='move_btn' onClick={goToPreviousPage} disabled={currentPage <= 1}>
           Previous
         </button>
-        <span className="page-number">{`Page ${currentPage} of ${totalPages}`}</span>
-        <button
+        <span className="page-number">{`Page ${totalPages<currentPage?0:currentPage} of ${totalPages}`}</span>
+        <button className='move_btn'
           onClick={goToNextPage}
-          disabled={indexOfLastRecord >= dnsRecords.length}
+          disabled={currentPage >= totalPages}
         >
           Next
         </button>
@@ -133,9 +137,11 @@ const navigate=useNavigate();
           </tr>
         </thead>
         <tbody>
-          {filteredRecords.map((record) => {
-          return <Table  props={record}/>
-            })}
+          { 
+          currentRecords.map((record) => {
+            return <Table  props={record}/>
+            })
+        }
         </tbody>
       </table>
     </div>
