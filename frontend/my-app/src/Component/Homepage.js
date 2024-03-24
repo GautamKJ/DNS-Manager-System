@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import Navbar from "../Component/Navbar"
 import Table from "./Table";
 import Chart from "../Component/Chart";
+import Dropdown from "../Component/Dropdown";
 
 
 
 const Homepage = () => {
     
     document.title='Dashboard';
-    const[typecnt,setTypecnt]=useState({'A':1,'MX':10,'CNAME':12,'AAAA':13,'NS':14,'PTR':5,'SOA':16,'SRV':20,'TXT':8,'DNSSEC':2});
+    const[typecnt,setTypecnt]=useState({'A': 13,'MX':10,'CNAME':12,'AAAA':13,'NS':14,'PTR':5,'SOA':16,'SRV':2,'TXT':8,'DNSSEC':2});
 
 
     const [dnsRecords, setDNSRecords] = useState([ { "domain": "example1.com", "recordType": "A", "value": "192.168.1.1" },
@@ -67,6 +68,7 @@ const Homepage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(20);
   const [searchTerm, setSearchTerm] = useState("");
+  const[selected,setSelected] = useState("Domain");
   
 
   
@@ -77,10 +79,23 @@ const Homepage = () => {
   
 
   // Filter records based on the search term
-  const filteredRecords = dnsRecords.filter((record) =>
-    record.domain.toLowerCase().includes(searchTerm.toLowerCase())
+const filteredRecords = dnsRecords.filter((record) => {
+ 
+  if (selected.trim() == "Domain".trim()) {
+    console.log("domain: ");
+    return record.domain.toLowerCase().includes(searchTerm.toLowerCase());
+  } else if (selected.trim() == "recordType".trim()) {
+    
+    return record.recordType.toLowerCase().includes(searchTerm.toLowerCase());
+  } else if (selected.trim() == "Value".trim()) {
+    console.log("Value: ");
+    return record.value.toLowerCase().includes(searchTerm.toLowerCase());
+  }
+  
+  
+  return false;
+});
 
-  );
 
   // Get the records for the current page
   const currentRecords = filteredRecords.slice(indexOfFirstRecord, indexOfLastRecord);
@@ -115,11 +130,12 @@ const Homepage = () => {
       <div className="search-bar">
         <input
           type="text"
-          placeholder="Search by Domain"
+          placeholder={`Search by ${selected}`}
           value={searchTerm}
           onChange={handleChange}
           className="search-input"
         />
+        <Dropdown selected={selected} setSelected={setSelected}/>
         <button className='move_btn' onClick={goToPreviousPage} disabled={currentPage <= 1}>
           Previous
         </button>
