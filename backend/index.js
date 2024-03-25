@@ -1,8 +1,6 @@
 const express=require('express');
 const database = require('./db');
-const cookieParser = require("cookie-parser");
-var cors = require('cors');
-
+const path=require('path');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -28,7 +26,12 @@ app.use("/api/user",require("./router/user"));
 app.use("/api/hosted-zone",require("./router/hostedzone"));
 app.use("/api/sub-domain",require("./router/subdomain"));
 
+app.get('/',(req,res)=>{
+    res.send("Server is working");
+})
 
+app.use(express.static(path.join(__dirname,  'build')));
+console.log(path.join(__dirname, '../frontend/my-app', 'build'));
 
 app.listen(PORT, function () {
  
