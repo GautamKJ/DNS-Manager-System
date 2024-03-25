@@ -1,75 +1,95 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import Navbar from "../Component/Navbar"
 import Table from "./Table";
 import Chart from "../Component/Chart";
 import Dropdown from "../Component/Dropdown";
+import Loading from "../Component/Spinner"
 
 
 
 const Homepage = () => {
     
     document.title='Dashboard';
-    const[typecnt,setTypecnt]=useState({'A': 13,'MX':10,'CNAME':12,'AAAA':13,'NS':14,'PTR':5,'SOA':16,'SRV':2,'TXT':8,'DNSSEC':2});
-
-
-    const [dnsRecords, setDNSRecords] = useState([ { "domain": "example1.com", "recordType": "A", "value": "192.168.1.1" },
-    { "domain": "example2.com", "recordType": "A", "value": "192.168.1.2" },
-    { "domain": "example3.com", "recordType": "MX", "value": "mail.server3.com" },
-    { "domain": "example4.com", "recordType": "CNAME", "value": "www.example4.com" },
-    { "domain": "example5.com", "recordType": "A", "value": "192.168.1.5" },
-    { "domain": "example6.com", "recordType": "A", "value": "192.168.1.6" },
-    { "domain": "example7.com", "recordType": "MX", "value": "mail.server7.com" },
-    { "domain": "example8.com", "recordType": "CNAME", "value": "www.example8.com" },
-    { "domain": "example9.com", "recordType": "A", "value": "192.168.1.9" },
-    { "domain": "example10.com", "recordType": "A", "value": "192.168.1.10" },
-    { "domain": "example11.com", "recordType": "MX", "value": "mail.server11.com" },
-    { "domain": "example12.com", "recordType": "CNAME", "value": "www.example12.com" },
-    { "domain": "example13.com", "recordType": "A", "value": "192.168.1.13" },
-    { "domain": "example14.com", "recordType": "A", "value": "192.168.1.14" },
-    { "domain": "example15.com", "recordType": "MX", "value": "mail.server15.com" },
-    { "domain": "example16.com", "recordType": "CNAME", "value": "www.example16.com" },
-    { "domain": "example17.com", "recordType": "A", "value": "192.168.1.17" },
-    { "domain": "example18.com", "recordType": "A", "value": "192.168.1.18" },
-    { "domain": "example19.com", "recordType": "MX", "value": "mail.server19.com" },
-    { "domain": "example20.com", "recordType": "CNAME", "value": "www.example20.com" },
-    { "domain": "example21.com", "recordType": "A", "value": "192.168.1.21" },
-    { "domain": "example22.com", "recordType": "A", "value": "192.168.1.22" },
-    { "domain": "example23.com", "recordType": "MX", "value": "mail.server23.com" },
-    { "domain": "example24.com", "recordType": "CNAME", "value": "www.example24.com" },
-    { "domain": "example25.com", "recordType": "A", "value": "192.168.1.25" },
-    { "domain": "example26.com", "recordType": "A", "value": "192.168.1.26" },
-    { "domain": "example27.com", "recordType": "MX", "value": "mail.server27.com" },
-    { "domain": "example28.com", "recordType": "CNAME", "value": "www.example28.com" },
-    { "domain": "example29.com", "recordType": "A", "value": "192.168.1.29" },
-    { "domain": "example30.com", "recordType": "A", "value": "192.168.1.30" },
-    { "domain": "example31.com", "recordType": "MX", "value": "mail.server31.com" },
-    { "domain": "example32.com", "recordType": "CNAME", "value": "www.example32.com" },
-    { "domain": "example33.com", "recordType": "A", "value": "192.168.1.33" },
-    { "domain": "example34.com", "recordType": "A", "value": "192.168.1.34" },
-    { "domain": "example35.com", "recordType": "MX", "value": "mail.server35.com" },
-    { "domain": "example36.com", "recordType": "CNAME", "value": "www.example36.com" },
-    { "domain": "example37.com", "recordType": "A", "value": "192.168.1.37" },
-    { "domain": "example38.com", "recordType": "A", "value": "192.168.1.38" },
-    { "domain": "example39.com", "recordType": "MX", "value": "mail.server39.com" },
-    { "domain": "example40.com", "recordType": "CNAME", "value": "www.example40.com" },
-    { "domain": "example41.com", "recordType": "A", "value": "192.168.1.41" },
-    { "domain": "example42.com", "recordType": "A", "value": "192.168.1.42" },
-    { "domain": "example43.com", "recordType": "MX", "value": "mail.server43.com" },
-    { "domain": "example44.com", "recordType": "CNAME", "value": "www.example44.com" },
-    { "domain": "example45.com", "recordType": "A", "value": "192.168.1.45" },
-    { "domain": "example46.com", "recordType": "A", "value": "192.168.1.46" },
-    { "domain": "example47.com", "recordType": "MX", "value": "mail.server47.com" },
-    { "domain": "example48.com", "recordType": "CNAME", "value": "www.example48.com" },
-    { "domain": "example49.com", "recordType": "A", "value": "192.168.1.49" },
-    { "domain": "example50.com", "recordType": "A", "value": "192.168.1.50" },
-    { "domain": "example51.com", "recordType": "MX", "value": "mail.server"}
-  
-    ]);
+    const [dnsRecords, setDNSRecords] = useState([]);
+    const[loading,setloading]=useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(20);
   const [searchTerm, setSearchTerm] = useState("");
-  const[selected,setSelected] = useState("Domain");
+  const[selected,setSelected] = useState("Name");
+  const options = ["Name","Type"];
+    const[typecnt,setTypecnt]=useState({'A': 0,'MX':0,'CNAME':0,'AAAA':0,'NS':0,'PTR':0,'SOA':0,'SRV':0,'TXT':0,'DNSSEC':0});
+
+    
+    useEffect(() => {
+      // Reset type count
+      setTypecnt({
+        'A': 0,
+        'MX': 0,
+        'CNAME': 0,
+        'AAAA': 0,
+        'NS': 0,
+        'PTR': 0,
+        'SOA': 0,
+        'SRV': 0,
+        'TXT': 0,
+        'DNSSEC': 0
+      });
+    
+      // Update type count based on filtered records
+      
+      dnsRecords.forEach((record) => {
+        
+        setTypecnt(prev => ({
+          ...prev,
+          [record.Type]: prev[record.Type] + 1
+        }));
+      });
+    
+    }, [dnsRecords]);
+    
+
   
+  
+
+
+    // fetch records
+    useEffect(() => {
+      const run =async()=>{
+
+        await fetchRecords();
+        console.log("dnsRecords",dnsRecords);
+        
+      }
+      
+      run();
+      
+      
+    }, []);
+     // Get hosted zone information
+     const fetchRecords = async () => {
+      try {
+        setloading(true);
+        const response = await fetch('http://localhost:5000/api/sub-domain/list',{
+          method:"GET",
+          headers:{
+              'content-Type':'application/json',
+              'auth-token':localStorage.getItem('token')
+            },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch hosted zones');
+        }
+        const data = await response.json();
+        console.log(data);
+        setDNSRecords(data);
+      } catch (error) {
+        console.error('Error fetching hosted zones:', error);
+      }
+      setloading(false);
+    };
+
+      console.log('Fetching',dnsRecords);
+    
 
   
   // Calculate the index of the last record on the current page
@@ -80,16 +100,15 @@ const Homepage = () => {
 
   // Filter records based on the search term
 const filteredRecords = dnsRecords.filter((record) => {
+
+  
  
-  if (selected.trim() == "Domain".trim()) {
+  if (selected.trim() == "Name".trim()) {
     console.log("domain: ");
-    return record.domain.toLowerCase().includes(searchTerm.toLowerCase());
-  } else if (selected.trim() == "recordType".trim()) {
+    return record.Name.toLowerCase().includes(searchTerm.toLowerCase());
+  } else if (selected.trim() == "Type".trim()) {
     
-    return record.recordType.toLowerCase().includes(searchTerm.toLowerCase());
-  } else if (selected.trim() == "Value".trim()) {
-    console.log("Value: ");
-    return record.value.toLowerCase().includes(searchTerm.toLowerCase());
+    return record.Type.toLowerCase().includes(searchTerm.toLowerCase());
   }
   
   
@@ -127,6 +146,7 @@ const filteredRecords = dnsRecords.filter((record) => {
     <div className="dashboard">
       <div className="dns-records-table">
       <h3>DNS Records Table</h3>
+      {loading && <Loading/>} 
       <div className="search-bar">
         <input
           type="text"
@@ -135,7 +155,7 @@ const filteredRecords = dnsRecords.filter((record) => {
           onChange={handleChange}
           className="search-input"
         />
-        <Dropdown selected={selected} setSelected={setSelected}/>
+        <Dropdown selected={selected} setSelected={setSelected} options={options}/>
         <button className='move_btn' onClick={goToPreviousPage} disabled={currentPage <= 1}>
           Previous
         </button>
@@ -150,18 +170,21 @@ const filteredRecords = dnsRecords.filter((record) => {
       <table>
         <thead>
           <tr>
-            <th>Domain</th>
+            <th>Name</th>
             <th>Type</th>
+            <th>TTL</th>
             <th>Value</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          { 
-          currentRecords.map((record) => {
-            return <Table  props={record}/>
+          
+          { console.log("currentPage ",currentRecords) ||
+          currentRecords.map((record) => { 
+            return <Table  props={record} fetchRecords={fetchRecords}/>
             })
         }
+        
         </tbody>
       </table>
     </div>

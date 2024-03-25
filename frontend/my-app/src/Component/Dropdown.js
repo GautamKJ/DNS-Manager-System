@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 
-const Dropdown = ({selected,setSelected}) => {
+const Dropdown = ({selected,setSelected,options,hostedZones,setSelectedzone=undefined}) => {
     const [isActive,setIsActive] =useState(false);
-    const options = ["Domain","recordType","Value"];
+    
 
-    console.log(selected);
+    console.log(hostedZones);
 
   return (
     <>
@@ -14,12 +14,22 @@ const Dropdown = ({selected,setSelected}) => {
             </div>
             {isActive && <div className='dropdown-content'>
             {
-                options.map((option,index)=>(
+               options!=undefined? options.map((option,index)=>(
                     <div onClick={(e)=>
                         {setIsActive(false);
                         setSelected(e.target.textContent)
+                        
                         }}
                          className='dropdown-item'>{option} </div>  
+                ))
+                :
+                hostedZones.map((option,index)=>(
+                    <div onClick={(e)=>
+                        {setIsActive(false);
+                        setSelected(e.target.textContent)
+                        setSelectedzone(option)
+                        }}
+                         className='dropdown-item'>{option.Name} </div>  
                 ))
             }
             </div>

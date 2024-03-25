@@ -1,30 +1,16 @@
 import React, { useState } from 'react'
-import {Link} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 import Navbar from "../Component/Navbar"
 import user_icon from '../Assets/person.png'
 import email_icon from '../Assets/email.png'
 import password_icon from '../Assets/password.png'
+import Loading from "../Component/Spinner"
 
 const Signup = () => {    
-    
-    const [showbtn,updateshowbtn]=useState("far fa-eye");
-    const [type,updatetype]=useState("password");
-
+    let navigate=useNavigate();
     const [credentials,setcredentials]=useState({name:"",email:"",password:""});
+    const[loading,setloading]=useState(false);
     
-
-const showPassword=()=>{
-
-    if(type==='password'){
-        updatetype("text");
-        updateshowbtn("far fa-eye-slash");
-    }
-    else{
-    updatetype("password");
-    updateshowbtn("far fa-eye");
-    }
-
-} 
 
 const setDetail=(e)=>{
     setcredentials({...credentials,[e.target.name]:e.target.value});
@@ -32,13 +18,35 @@ const setDetail=(e)=>{
 
 const onsubmit= async(e)=>{
     e.preventDefault();
-   
-        setcredentials({name:"",email:"",password:""});
+   setloading(true);
+    try{
+    const response=await fetch("http://localhost:5000/api/user/create",{
+        method:"POST",
+        headers:{
+          'content-Type':'application/json',
+        },
+        body:JSON.stringify({name:credentials.name , email:credentials.email, password:credentials.password})
+      });
+      const json= await response.json();
+
+        console.log(json,+"\n" +response);
+      if(response.ok)
+      {
+        window.alert("Succesfully created");
+            navigate("/login");
+      }
+      else
+        window.alert("User not created");
+        
     }
-    
+    catch(err){
+        window.alert("User not created");
+    }
+    setloading(false);
+    setcredentials({name:"",email:"",password:""});
       
     
-
+}
 
 
 
@@ -47,29 +55,31 @@ const onsubmit= async(e)=>{
   return (
     <>
     <Navbar/>
+
         <div className="container">
         <div className="header">
         <div className='text'>Sign Up</div>
         <div className='underline'></div>
-
+            {loading && <Loading/>}
         </div>
-        <form className='inputs'>
+        <form onSubmit={onsubmit} className='inputs'>
         <div className='input'>
             <img src={user_icon}/>
-            <input type="text" placeholder="Name" name="name" onChange={setDetail} />
+            <input type="text" placeholder="Name" name="name" onChange={setDetail} minLength={3} value={credentials.name}  />
         </div>  
         <div className='input'>
             <img src={email_icon}/>
-            <input type="email" placeholder="Email" name="name" onChange={setDetail} />
+            <input type="email" placeholder="Email" name="email"  value={credentials.email} onChange={setDetail} />
         </div>   
           
         <div className='input'>
             <img src={password_icon}/>
-            <input type="password" placeholder="Password" name="name" onChange={setDetail} />
+            <input type="password" placeholder="Password" name="password" minLength={3} value={credentials.password} onChange={setDetail} />
         </div>   
         <span> Already Register?<Link to="/login" style={{ textDecoration: "none" }}>Login</Link></span>
         <div className='submit-container'>
-            <div className='submit'>Signup</div>
+            
+            <button type="submit" className='submit' >Sign up</button>
             
         </div>
         </form>

@@ -1,25 +1,56 @@
 import React, { useState } from "react";
+import Loading from "../Component/Spinner"
 
 const Modal = (props) => {
 
+  console.log("props", props);
+  
     
-    
-const [detail,setdetail]=useState({domain:props.record.props.domain,propsType:props.record.props.recordType,valueR:props.record.props.value});
+  const[loading,setloading]=useState(false);
+const [detail,setdetail]=useState({Value:props.record.props.ResourceRecords[[0]].Value,TTL:props.record.props.TTL});
 
-    
+    console.log(props.record.props.ResourceRecords[0].Value);
 
 const handleChange=(e)=>{
-
+    console.log("handleChange");
     setdetail({...detail,[e.target.name]:e.target.value})
 
 }
 
-const handleSubmit=(e)=>{
-    e.preventDefault();
+const handleSubmit=async (e)=>{
+  e.preventDefault();
+  try {
+    setloading(true);
+    const response = await fetch('http://localhost:5000/api/sub-domain/update',{
+      method:"PUT",
+      headers:{
+          'content-Type':'application/json',
+          'auth-token':localStorage.getItem('token')
+        },
+        body:JSON.stringify({recordName:props.record.props.Name,recordType:props.record.props.Type,ttl:detail.TTL,Id:props.record.props.HostedZoneId,recordValue:detail.Value})
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch hosted zones');
+    }
+    const data = await response.json();
+    console.log(data);
+    window.alert("Updated Successfully");
+  } catch (error) {
+    console.error('Error fetching hosted zones:', error);
+    window.alert("Failed to update ",error.message);
+  }
     
+  setloading(false);
+    setdetail({Name:'',Type:'',TTL:''});
+    props.record.fetchRecords();
     props.onStateChange();
+
     
 }
+  const cancelbtn=(e)=>{
+    e.preventDefault();
+    props.onStateChange();
+  }
 
 
   return (
@@ -28,40 +59,50 @@ const handleSubmit=(e)=>{
       <div className="modal-container">
       
         <div className="modal_box">
+        {loading && <Loading/>}
         <h2>Edit</h2>
           <form onSubmit={handleSubmit}>
             <div className="form-group">
-              <label htmlFor="page">Domain</label>
+              <label htmlFor="page">Name</label>
               <input
                 type="text"
-                name="domain"
+                name="Name"
 
-                value={detail.domain}
+                value={props.record.props.Name}
                 onChange={handleChange}
               />
             </div>
             <div className="form-group">
-              <label htmlFor="page">propsType</label>
+              <label htmlFor="page">Type</label>
               <input
                 type="text"
-                name="propsType"
-                value={detail.propsType}
+                name="Type"
+                value={props.record.props.Type}
                 onChange={handleChange}
               />
             </div>
             <div className="form-group">
+              <label htmlFor="page">TTL</label>
+              <input
+                type="text"
+                name="TTL"
+                value={detail.TTL}
+                onChange={handleChange}
+              />
+            </div>
+            {/* <div className="form-group">
               <label htmlFor="page">Value</label>
               <input
                 type="text"
-                name="valueR"
-                value={detail.valueR}
+                name="Value"
+                value={detail.Value}
                 onChange={handleChange}
               />
-            </div>
+            </div> */}
             <button type="submit" className="btn">
               Update
             </button>
-            <button  className="cncl_btn">
+            <button  onClick={cancelbtn} className="cncl_btn">
               Cancel
             </button>
           </form>

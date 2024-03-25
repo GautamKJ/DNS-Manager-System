@@ -1,33 +1,19 @@
 import React, { useState } from 'react'
-import {Link} from "react-router-dom";
+import {Link,useNavigate} from "react-router-dom";
 import Navbar from "../Component/Navbar"
-
+import Loading from "../Component/Spinner"
 import email_icon from '../Assets/email.png'
 import password_icon from '../Assets/password.png'
 
 const Login = () => {
 
   
-
-  const [showbtn,updateshowbtn]=useState("far fa-eye");
+  let navigate=useNavigate();
+  const[loading,setloading]=useState(false);
+  
   const [type,updatetype]=useState("password");
   const [credentials,setcredentials]=useState({email:"",password:""});
 
-const showPassword=()=>{
-
-
-  if(type==='password'){
-      updatetype("text");
-      updateshowbtn("far fa-eye-slash");
-  }
-  
-  else{
-  updatetype("password");
-
-  updateshowbtn("far fa-eye");
-  }
-
-}
 
 const setDetail=(e)=>{
   setcredentials({...credentials,[e.target.name]:e.target.value});
@@ -35,8 +21,31 @@ const setDetail=(e)=>{
 
 const onsubmit= async(e)=>{
   e.preventDefault();
-  
-  
+  setloading(true);
+  try{
+    const response=await fetch("http://localhost:5000/api/user/login",{
+        method:"POST",
+        headers:{
+          'content-Type':'application/json',
+        },
+        body:JSON.stringify({email:credentials.email, password:credentials.password})
+      });
+      const json= await response.json();
+      localStorage.setItem("token",json.token);
+      console.log(json);
+    if(response.ok)
+  {
+      navigate("/add-domain");
+  }
+  else
+  window.alert("Wrong Credentials. Please try again...");      
+        
+    }
+    catch(err){
+      window.alert("Wrong Credentials. Please try again...");      
+    }
+    setcredentials({email:"",password:""});
+    setloading(false);
   
   
   }
@@ -50,22 +59,23 @@ const onsubmit= async(e)=>{
         <div className="header">
         <div className='text'>Login</div>
         <div className='underline'></div>
+        {loading && <Loading/>}
 
         </div>
-        <form className='inputs'>
+        <form onSubmit={onsubmit} className='inputs'>
         
         <div className='input'>
             <img src={email_icon}/>
-            <input type="email" placeholder="Email" name="name" onChange={setDetail} />
+            <input type="email" placeholder="Email" name="email" value={credentials.email} onChange={setDetail} />
         </div>   
           
         <div className='input'>
             <img src={password_icon}/>
-            <input type="password" placeholder="Password" name="name" onChange={setDetail} />
+            <input type="password" placeholder="Password" name="password" value={credentials.password} onChange={setDetail} />
         </div>   
         <span>Not Register?<Link to="/signup" style={{ textDecoration: "none" }}>Sign up</Link></span>
         <div className='submit-container'>
-            <div className='submit'>Login</div>
+        <button type="submit" className='submit' >Login</button>
             
         </div>
         </form>
