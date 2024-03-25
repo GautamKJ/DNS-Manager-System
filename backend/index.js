@@ -1,7 +1,6 @@
 const express=require('express');
 const database = require('./db');
 const cookieParser = require("cookie-parser");
-var cors = require('cors');
 const path=require('path');
 const bodyParser = require('body-parser');
 
@@ -20,7 +19,7 @@ const PORT= process.env.PORT || 5000;
 
 
 
-app.use(cors());
+
 
 database();
 
