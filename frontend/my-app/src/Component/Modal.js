@@ -21,7 +21,7 @@ const handleSubmit=async (e)=>{
   e.preventDefault();
   try {
     setloading(true);
-    const response = await fetch('http://localhost:5000/api/sub-domain/update',{
+    const response = await fetch('https://dns-manager-system-4.onrender.com/api/sub-domain/update',{
       method:"PUT",
       headers:{
           'content-Type':'application/json',

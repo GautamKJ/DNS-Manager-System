@@ -69,7 +69,7 @@ const Homepage = () => {
      const fetchRecords = async () => {
       try {
         setloading(true);
-        const response = await fetch('http://localhost:5000/api/sub-domain/list',{
+        const response = await fetch('https://dns-manager-system-4.onrender.com/api/sub-domain/list',{
           method:"GET",
           headers:{
               'content-Type':'application/json',

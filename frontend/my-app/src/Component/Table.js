@@ -18,7 +18,7 @@ const Table = (record) => {
       
       try {
         setloading(true);
-        const response = await fetch('http://localhost:5000/api/sub-domain/',{
+        const response = await fetch('https://dns-manager-system-4.onrender.com/api/sub-domain/',{
           method:"DELETE",
           headers:{
               'content-Type':'application/json',

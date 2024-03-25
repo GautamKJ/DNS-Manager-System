@@ -66,7 +66,7 @@ const AddDomain = () => {
       
       
         try {
-          const response = await fetch('http://localhost:5000/api/hosted-zone/list',{
+          const response = await fetch('https://dns-manager-system-4.onrender.com/api/hosted-zone/list',{
             method:"GET",
             headers:{
                 'content-Type':'application/json',
@@ -94,7 +94,7 @@ const AddDomain = () => {
           return;
         try {
           setloading(true);
-          const response = await fetch('http://localhost:5000/api/hosted-zone/create', {
+          const response = await fetch('https://dns-manager-system-4.onrender.com/api/hosted-zone/create', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -143,7 +143,7 @@ const AddDomain = () => {
             formData.append("uploadedfile", file.raw);
             formData.append("hostedZoneId", selectedzone.HostedZoneId); 
             
-            const response = await fetch("http://localhost:5000/api/sub-domain/dns", {
+            const response = await fetch("https://dns-manager-system-4.onrender.com/api/sub-domain/dns", {
                 method: "POST",
                 body: formData,
             });
@@ -185,7 +185,7 @@ const AddDomain = () => {
 
         try {
           setloading(true);
-          const response = await fetch('http://localhost:5000/api/sub-domain/create', {
+          const response = await fetch('https://dns-manager-system-4.onrender.com/api/sub-domain/create', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'              
