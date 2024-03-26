@@ -41,18 +41,7 @@ const AddDomain = () => {
         if (e.target.files.length) {
           const selectedFile = e.target.files[0];
           setFileName(e.target.files[0]);
-          // Handle Image size
-          if (selectedFile) {
-            const fileSize = selectedFile.size / 1024 / 1024; // Size in MB
-          
-            if (fileSize > 2) {
-              alert('Please select an image with a size less than 2MB.');
-              
-              
-              return;
-            }
-    
-          }
+        
           setFile({
             preview: URL.createObjectURL(e.target.files[0]),
             raw: e.target.files[0]
@@ -245,7 +234,7 @@ const AddDomain = () => {
     <h4>Create Record using JSON file</h4>
         <form onSubmit={onsubmit} class="home_file">
         
-            <input type="file" class="home_file_input" name="uploadedfile" onChange={handleFileChosen} aria-describedby="inputGroupFileAddon03" aria-label="Upload" accept=".json"/>
+            <input type="file" class="home_file_input" name="uploadedfile" onChange={handleFileChosen} aria-describedby="inputGroupFileAddon03" aria-label="Upload" accept=".json, .csv"/>
             <button type="submit" id="cbtn" class="home_addbtn" disabled={file.raw === ""} >Add Records</button>
             
         </form>
