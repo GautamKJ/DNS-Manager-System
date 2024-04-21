@@ -79,7 +79,8 @@ const onsubmit= async(e)=>{
         <span> Already Register?<Link to="/login" style={{ textDecoration: "none" }}>Login</Link></span>
         <div className='submit-container'>
             
-            <button type="submit" className='submit' disabled={credentials.email==="" || credentials.password==="" || credentials.name===""}  >Sign up</button>
+            // <button type="submit" className='submit' disabled={credentials.email==="" || credentials.password==="" || credentials.name===""}  >Sign up</button>
+         <button type="submit" className='submit' disabled=true  >Sign up</button>
             
         </div>
         </form>
