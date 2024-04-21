@@ -80,7 +80,8 @@ const onsubmit= async(e)=>{
         <div className='submit-container'>
             
             // <button type="submit" className='submit' disabled={credentials.email==="" || credentials.password==="" || credentials.name===""}  >Sign up</button>
-         <button type="submit" className='submit' disabled=true  >Sign up</button>
+                 <button type="submit" className='submit' disabled>Sign up</button>
+
             
         </div>
         </form>
