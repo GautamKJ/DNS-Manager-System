@@ -18,9 +18,9 @@ Develop a web application to provide a central dashboard for automating manageme
 ## Technologies Used
 
 - MongoDB: NoSQL database for storing user data.
-- Express.js: Web application framework for Node.js.
-- React.js: JavaScript library for building user interfaces.
-- Node.js: JavaScript runtime for server-side development.
+- ExpressJs: Web application framework for NodeJs.
+- ReactJs: JavaScript library for building user interfaces.
+- NodeJs: JavaScript runtime for server-side development.
 - Amazon Route53: Amazon Route53 is an aws service than offers a DNS.
 
 
