@@ -24,5 +24,8 @@ Develop a web application to provide a central dashboard for automating manageme
 - Amazon Route53: Amazon Route53 is an aws service than offers a DNS.
 
 
+## web page
+<img width="956" alt="thaiocr" src="https://main--gautamjha306.netlify.app/dnsproject.png">
+
 
    
